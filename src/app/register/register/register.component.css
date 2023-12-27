@@ -1,0 +1,24 @@
+.bg{
+    background-image: url(assets/img/abstract_box.jpg);
+    width: 100%;
+    height : 100vh;
+    page-break-after :always;
+
+     /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto;   
+    padding-top: 2cm;
+}
+
+.color-pattern{
+    background-color: rgb(95, 97, 97);
+    color:azure;
+}
+
+
+
+
+
+
+
