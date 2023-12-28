@@ -13,6 +13,8 @@ import {MatRippleModule} from '@angular/material/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
+import {MatTabsModule} from '@angular/material/tabs';
+import { TableExpenseComponent } from 'app/table-list/table-expense/table-expense.component';
 
 @NgModule({
   imports: [
@@ -26,12 +28,14 @@ import {MatSelectModule} from '@angular/material/select';
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
+    MatTabsModule
   ],
   declarations: [
     DashboardComponent,
     UserProfileComponent,
     TableListComponent,
     NotificationsComponent,
+    TableExpenseComponent
   ]
 })
 
