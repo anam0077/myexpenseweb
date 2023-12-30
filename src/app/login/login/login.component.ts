@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import icJira from '@iconify/icons-logos/jira';
 import icMail from '@iconify/icons-ic/twotone-mail';
-import icKey from '@iconify/icons-fa-solid/user-lock';
 import icAt from '@iconify/icons-fa-solid/at';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LoginService } from 'app/shared/login.service';
 
 @Component({
   selector: 'login',
@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private loginService:LoginService
   ) { }
 
   ngOnInit() {
@@ -34,14 +35,13 @@ export class LoginComponent implements OnInit {
 
 }
 
-onSubmit() {
+  onSubmit() {
   this.submitted = true;
 
-  // stop here if form is invalid
-  if (this.loginForm.invalid) {
-      return;
-  }
-
+  this.loginService.Login((this.loginForm.controls?.username?.value || '').toLowerCase(),(this.loginForm.controls?.password?.value || '').toLowerCase())
+  .subscribe(
+    success => console.log("clientId ="+success.payload.clientId)
+  )
   
 }
 
