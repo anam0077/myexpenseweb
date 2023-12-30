@@ -5,19 +5,19 @@
 
               <mat-tab-group>
                 <mat-tab label="Today"> 
-                    <table-expense></table-expense>
+                    <table-expense [headColor]="'card-header-success'"></table-expense>
                 </mat-tab>
                 <mat-tab label="Month"> 
-                    <table-expense></table-expense>
+                    <table-expense [headColor]="'card-header-warning'"></table-expense>
                 </mat-tab>
                 <mat-tab label="Year"> 
-                    <table-expense></table-expense>
+                    <table-expense [headColor]="'card-header-danger'"></table-expense>
                 </mat-tab>
                 <mat-tab label="All"> 
-                    <table-expense></table-expense>
+                    <table-expense [headColor]="'card-header-primary'"></table-expense>
                 </mat-tab>
                 <mat-tab label="Custom"> 
-                    <table-expense></table-expense>
+                    <table-expense [headColor]="'card-header-accent'"></table-expense>
                 </mat-tab>
               </mat-tab-group>
           </div>
