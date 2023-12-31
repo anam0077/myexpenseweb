@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import icJira from '@iconify/icons-logos/jira';
 import icMail from '@iconify/icons-ic/twotone-mail';
 import icAt from '@iconify/icons-fa-solid/at';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LoginService } from 'app/shared/login.service';
+import { LoginService } from 'app/shared/service/login-service/login.service';
+import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'login',
@@ -23,7 +25,9 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private loginService:LoginService
+    private loginService:LoginService,
+    @Inject(LOCAL_STORAGE) private storage: StorageService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -31,18 +35,18 @@ export class LoginComponent implements OnInit {
         username: ['', Validators.required],
         password: ['', Validators.required]
     });
-
-
-}
+   }
 
   onSubmit() {
   this.submitted = true;
-
-  this.loginService.Login((this.loginForm.controls?.username?.value || '').toLowerCase(),(this.loginForm.controls?.password?.value || '').toLowerCase())
-  .subscribe(
-    success => console.log("clientId ="+success.payload.clientId)
-  )
-  
-}
+  let status=this.loginService.Login((this.loginForm.controls?.username?.value || '').toLowerCase(),(this.loginForm.controls?.password?.value || '').toLowerCase());
+  status.subscribe(
+    data=>{
+      if(data){
+        this.router.navigate(['/table-list']);
+      }
+    }
+  ) 
+ }
 
 }
