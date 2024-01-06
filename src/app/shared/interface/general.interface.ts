@@ -16,3 +16,28 @@ export interface Token{
     type:string;
     expired_in:string;
 }
+
+
+export interface Expense{
+    no:string;
+    client:string;
+    item:string;
+    amount:string;
+    date:string;
+}
+
+export interface BodyExpense{
+    searchAmount:string;
+    searchRow:string;
+    totalAmount:string;
+    totalRows:string;
+    offsetPrev:string;
+    offsetNext:string;
+    itemList:Expense[];
+}
+
+export interface GenericExpenseResponse{
+    status:string;
+    message:string;
+    body:BodyExpense;
+}
