@@ -5,20 +5,45 @@
 
               <mat-tab-group>
                 <mat-tab label="Today"> 
-                    <table-expense [headColor]="'card-header-success'"></table-expense>
+                    <table-expense [inputData]="['card-header-success',today,'0','day']"></table-expense>
                 </mat-tab>
                 <mat-tab label="Month"> 
-                    <table-expense [headColor]="'card-header-warning'"></table-expense>
+                    <table-expense [inputData]="['card-header-warning',thisMonth,'0','month']"></table-expense>
                 </mat-tab>
                 <mat-tab label="Year"> 
-                    <table-expense [headColor]="'card-header-danger'"></table-expense>
+                    <table-expense [inputData]="['card-header-danger',thisYear,'0','year']"></table-expense>
                 </mat-tab>
                 <mat-tab label="All"> 
-                    <table-expense [headColor]="'card-header-primary'"></table-expense>
+                    <table-expense [inputData]="['card-header-primary','','0','all']"></table-expense>
                 </mat-tab>
                 <mat-tab label="Custom"> 
-                    <table-expense [headColor]="'card-header-accent'"></table-expense>
-                </mat-tab>
+                    <div class="row">
+                         <div class="col-md-4 text- center">
+                          <button (click)="trigger()">Trigger</button>
+                         </div>
+                         <div class="col-md-4">
+                          <mat-form-field appearance="fill">
+                            <mat-label>Enter a date range</mat-label>
+                            <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+                              <input matStartDate formControlName="start" placeholder="Start date">
+                              <input matEndDate formControlName="end" placeholder="End date">
+                            </mat-date-range-input>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-date-range-picker #picker>
+                              <mat-date-range-picker-actions>
+                                <button mat-button matDateRangePickerCancel>Cancel</button>
+                                <button mat-raised-button color="primary" matDateRangePickerApply>Apply</button>
+                              </mat-date-range-picker-actions>
+                            </mat-date-range-picker>
+                            <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+                            <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+                          </mat-form-field>
+                          
+                        </div>
+                    </div>
+                    <p>Selected range: {{dateRange}}</p>       
+                    <table-expense [inputData]="['card-header-warning',dateRange,'0','custom']"></table-expense>
+                </mat-tab> 
               </mat-tab-group>
           </div>
       </div>
