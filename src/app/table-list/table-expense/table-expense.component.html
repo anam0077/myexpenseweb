@@ -1,7 +1,9 @@
 <div class="card">
-    <div class="card-header" [ngClass]="headColor">
+    <div class="card-header" [ngClass]="inputData[0]">
         <h4 class="card-title ">Today</h4>
-        <p class="card-category"> Here is a subtitle for this table</p>
+        <p class="card-category"> Total Expense 
+            <span *ngIf="!(expenseResponse.body==null)">{{expenseResponse.body.totalAmount}}</span>
+        </p>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -17,75 +19,16 @@
                         Amount
                     </th>
                 </thead>
-                <tbody>
-                    <tr>
+                <tbody *ngIf="!(expenseResponse.body==null)" >
+                    <tr *ngFor="let item of expenseResponse.body.itemList; let i = index">
                         <td>
-                            1
+                            {{i+1}}
                         </td>
                         <td>
-                            Fried Rice
+                            {{item.item}}
                         </td>
                         <td>
-                            25000
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            2
-                        </td>
-                        <td>
-                            Beef Steak
-                        </td>
-                        <td>
-                            75000
-                        </td>
-                      
-                    </tr>
-                    <tr>
-                        <td>
-                            3
-                        </td>
-                        <td>
-                            Croissant
-                        </td>
-                        <td>
-                            35000
-                        </td>
-                        
-                    </tr>
-                    <tr>
-                        <td>
-                            4
-                        </td>
-                        <td>
-                            Gasoline
-                        </td>
-                        <td>
-                            13000
-                        </td>
-                        
-                    </tr>
-                    <tr>
-                        <td>
-                            5
-                        </td>
-                        <td>
-                            Capuccino
-                        </td>
-                        <td>
-                            25000
-                        </td>
-                       
-                    </tr>
-                    <tr>
-                        <td>
-                            6
-                        </td>
-                        <td>
-                            Mobile Phone
-                        </td>
-                        <td>
-                            15000000
+                            {{item.amount}}
                         </td>
                     </tr>
                 </tbody>
