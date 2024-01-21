@@ -6,6 +6,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from 'app/shared/service/login-service/login.service';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarNotifComponent } from 'app/shared/notification/snackbar-notif-component';
+import { NotificationService } from 'app/shared/notification/notification-service.component';
+
 
 @Component({
   selector: 'login',
@@ -23,12 +27,16 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnUrl: string;
 
-  constructor(
+  public constructor(
     private formBuilder: FormBuilder,
     private loginService:LoginService,
     @Inject(LOCAL_STORAGE) private storage: StorageService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private snackBar: MatSnackBar,
+    private notifService:NotificationService
+  ) { 
+   
+  }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -48,5 +56,11 @@ export class LoginComponent implements OnInit {
     }
   ) 
  }
+
+ testNotif(){
+  // this.notifService.showError("err");
+  this.snackBar.openFromComponent(SnackbarNotifComponent, { data: { message: `Tier has been edited successfully`, type: 'danger' } });
+ }
+
 
 }

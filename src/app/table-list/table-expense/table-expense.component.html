@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-header" [ngClass]="inputData[0]">
-        <h4 class="card-title ">Today</h4>
+        <h4 class="card-title ">{{inputData[3]}}</h4>
         <p class="card-category"> Total Expense 
             <span *ngIf="!(expenseResponse.body==null)">{{expenseResponse.body.totalAmount}}</span>
         </p>

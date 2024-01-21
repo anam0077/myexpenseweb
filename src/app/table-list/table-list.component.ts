@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { BehaviorSubject, Observable, filter } from 'rxjs';
+import icSearch from '@iconify/icons-ic/baseline-search';
 
 declare var require: any;
 const moment = require('moment');
@@ -17,6 +18,7 @@ export class TableListComponent implements OnInit {
   today:string='';
   thisMonth:string='';
   thisYear:string='';
+  icSearch=icSearch;
 
 
   dateRangeSubject:BehaviorSubject<string>=new BehaviorSubject(null);  

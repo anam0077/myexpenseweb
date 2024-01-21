@@ -9,6 +9,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { BrowserModule } from '@angular/platform-browser';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 
 const routes: Routes = [
   {
@@ -18,7 +21,7 @@ const routes: Routes = [
 ];
 @NgModule({
   declarations: [
-    LoginComponent,
+    LoginComponent
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -30,7 +33,9 @@ const routes: Routes = [
     MatSnackBarModule,
     MatButtonToggleModule,
     MatTooltipModule,
-    FormsModule
+    FormsModule,
+    BrowserModule,
+    FlexLayoutModule,
   ]
 })
 export class LoginModule { }
