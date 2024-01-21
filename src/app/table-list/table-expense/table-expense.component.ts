@@ -1,8 +1,10 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Inject, Input, OnInit, SimpleChange } from '@angular/core';
+import { Router } from '@angular/router';
 import { GenericExpenseResponse ,BodyExpense, Expense } from 'app/shared/interface/general.interface';
 import { ExpenseService } from 'app/shared/service/expense/expense.service';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
-import { BehaviorSubject, Observable, filter } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, filter } from 'rxjs';
 
 const STORAGE_KEY = 'myexpense-token';
 
@@ -43,6 +45,7 @@ const STORAGE_KEY = 'myexpense-token';
   constructor(
     private expenseService:ExpenseService,
     @Inject(LOCAL_STORAGE) private storage: StorageService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -94,17 +97,25 @@ const STORAGE_KEY = 'myexpense-token';
             case 'custom':{
               endUri="custom";
               clue='custom';
-              console.log("inside date "+date);
               splitStr=date.split("&",2);
               start=splitStr[0];
               end=splitStr[1];
               break;
             }
           }
-     this.expenseService.showExpense(this.storage.get(STORAGE_KEY),date,offset,clue, start,end,endUri).subscribe(
+     this.expenseService.showExpense(this.storage.get(STORAGE_KEY),date,offset,clue, start,end,endUri)
+    
+     .subscribe(
       success=>{
         this.expenseSubject.next(success);
+      },
+      err=>{
+        if(err.status==401){
+          this.router.navigate(['/login']);
+        }
       }
     )
   }
+
+ 
 }

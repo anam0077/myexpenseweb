@@ -6,7 +6,6 @@ import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { UserProfileComponent } from '../../user-profile/user-profile.component';
 import { TableListComponent } from '../../table-list/table-list.component';
-import { NotificationsComponent } from '../../notifications/notifications.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
@@ -16,6 +15,10 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { TableExpenseComponent } from 'app/table-list/table-expense/table-expense.component';
+import { MatIconModule } from '@angular/material/icon';
+import { IconModule } from '@visurel/iconify-angular';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 
 
 @NgModule({
@@ -32,13 +35,14 @@ import { TableExpenseComponent } from 'app/table-list/table-expense/table-expens
     MatTooltipModule,
     MatTabsModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatIconModule,
+    IconModule
   ],
   declarations: [
     DashboardComponent,
     UserProfileComponent,
     TableListComponent,
-    NotificationsComponent,
     TableExpenseComponent
   ]
 })
