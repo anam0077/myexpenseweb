@@ -18,6 +18,6 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule } from '@angular/mater
   exports: [SnackbarNotifComponent],
   providers: [
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 7500 } }
-  ],
+  ]
 })
 export class NotificationModule { }

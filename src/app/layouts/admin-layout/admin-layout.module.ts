@@ -17,7 +17,6 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { TableExpenseComponent } from 'app/table-list/table-expense/table-expense.component';
 import { MatIconModule } from '@angular/material/icon';
 import { IconModule } from '@visurel/iconify-angular';
-import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 
