@@ -5,7 +5,7 @@ import icAt from '@iconify/icons-fa-solid/at';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from 'app/shared/service/login-service/login.service';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarNotifComponent } from 'app/shared/notification/snackbar-notif-component';
 import { NotificationService } from 'app/shared/notification/notification-service.component';
@@ -47,14 +47,23 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
   this.submitted = true;
-  let status=this.loginService.Login((this.loginForm.controls?.username?.value || '').toLowerCase(),(this.loginForm.controls?.password?.value || '').toLowerCase());
-  status.subscribe(
-    data=>{
-      if(data){
-        this.router.navigate(['/table-list']);
-      }
-    }
-  ) 
+  // let status=this.loginService.Login((this.loginForm.controls?.username?.value || '').toLowerCase(),(this.loginForm.controls?.password?.value || '').toLowerCase());
+  // status.subscribe(
+  //   data=>{
+  //     if(data){
+  //       this.router.navigate(['/table-list']);
+  //       // this.router.navigateByUrl("/table-list");
+  //     }
+  //   }
+  // ) 
+  // this.router.navigateByUrl('127.0.0.1:4200/#/about');
+  this.router.navigate(['/about', 'to','navigate'])
+    
+  // .then(nav => {
+  //     console.log("sukses "+nav); // true if navigation is successful
+  //   }, err => {
+  //     console.log("gagal "+err) // when there's an error
+  //   });
  }
 
  testNotif(){

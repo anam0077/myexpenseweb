@@ -36,6 +36,7 @@ const routes: Routes = [
     FormsModule,
     BrowserModule,
     FlexLayoutModule,
-  ]
+  ],
+  exports:[RouterModule]
 })
 export class LoginModule { }

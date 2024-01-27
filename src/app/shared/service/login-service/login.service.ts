@@ -5,6 +5,7 @@ import { ApiConfigService } from '../api-config.service';
 import { BehaviorSubject, Observable, filter } from 'rxjs';
 import { LoginResponse, Credential } from '../../interface/general.interface';
 import { AuthService } from '../auth/auth.service';
+import { NotificationService } from 'app/shared/notification/notification-service.component';
 
 const STORAGE_KEY = 'myexpense-token';
 
@@ -14,16 +15,17 @@ const STORAGE_KEY = 'myexpense-token';
 export class LoginService implements OnInit{
 
   statusSubject:BehaviorSubject<boolean>=new BehaviorSubject(false);  
-  statusData$:Observable<Boolean>=this.statusSubject.asObservable();
-  status:Boolean=false;
+  statusData$:Observable<boolean>=this.statusSubject.asObservable();
   ret:Observable<LoginResponse>;
+  status:boolean;
   credential:Credential={clientId:"",clientSecret:""};
 
   constructor(
     private apiConfigService: ApiConfigService,
     private http: HttpClient,
     private authService:AuthService,
-    @Inject(LOCAL_STORAGE) private storage: StorageService
+    @Inject(LOCAL_STORAGE) private storage: StorageService,
+    private notifService:NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -32,7 +34,7 @@ export class LoginService implements OnInit{
 
   register(){
     this.statusData$.pipe(
-      filter<Boolean>(Boolean)
+      filter<boolean>(Boolean)
     ).subscribe(
       data=>{
        this.status=data;
@@ -41,7 +43,7 @@ export class LoginService implements OnInit{
   }
 
 
-  Login(username:string, password:string):Observable<Boolean>{
+  Login(username:string, password:string):Observable<boolean>{
         const body={"username":username, "password":password};
         const headers = new HttpHeaders({ 
           'Content-Type': 'application/json',
@@ -59,8 +61,16 @@ export class LoginService implements OnInit{
                   // store token
                   this.storage.set(STORAGE_KEY,success.token);
                   this.statusSubject.next(true);
+                },
+                err=>{
+                  this.notifService.showError("err");
                 }
               )  
+        },
+        err=>{
+    
+            this.notifService.showError("error occurs");
+        
         });
     return this.statusData$;
   }
