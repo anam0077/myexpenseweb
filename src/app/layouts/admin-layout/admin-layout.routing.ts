@@ -49,7 +49,7 @@ export const AdminLayoutRoutes: Routes = [
     // }
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'user-profile',   component: UserProfileComponent },
-    { path: 'table-list',     component: TableListComponent },
+    { path: 'table-list',   component: TableListComponent },
     { 
         path: 'about-inner', 
         redirectTo: '/about',

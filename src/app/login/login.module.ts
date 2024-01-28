@@ -24,19 +24,18 @@ const routes: Routes = [
     LoginComponent
   ],
   imports: [
-    RouterModule.forChild(routes),
+    RouterModule.forRoot(routes),
     CommonModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSnackBarModule,
-    MatButtonToggleModule,
-    MatTooltipModule,
-    FormsModule,
-    BrowserModule,
-    FlexLayoutModule,
-  ],
-  exports:[RouterModule]
+    // ReactiveFormsModule,
+    // MatInputModule,
+    // MatButtonModule,
+    // MatIconModule,
+    // MatSnackBarModule,
+    // MatButtonToggleModule,
+    // MatTooltipModule,
+    // FormsModule,
+    // BrowserModule,
+    // FlexLayoutModule,
+  ]
 })
 export class LoginModule { }
