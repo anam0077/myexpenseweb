@@ -5,7 +5,6 @@ import { ApiConfigService } from '../api-config.service';
 import { BehaviorSubject, Observable, filter } from 'rxjs';
 import { LoginResponse, Credential } from '../../interface/general.interface';
 import { AuthService } from '../auth/auth.service';
-import { NotificationService } from 'app/shared/notification/notification-service.component';
 
 const STORAGE_KEY = 'myexpense-token';
 
@@ -25,7 +24,6 @@ export class LoginService implements OnInit{
     private http: HttpClient,
     private authService:AuthService,
     @Inject(LOCAL_STORAGE) private storage: StorageService,
-    private notifService:NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -43,7 +41,7 @@ export class LoginService implements OnInit{
   }
 
 
-  Login(username:string, password:string):Observable<boolean>{
+  login(username:string, password:string):Observable<boolean>{
         const body={"username":username, "password":password};
         const headers = new HttpHeaders({ 
           'Content-Type': 'application/json',
@@ -63,14 +61,12 @@ export class LoginService implements OnInit{
                   this.statusSubject.next(true);
                 },
                 err=>{
-                  this.notifService.showError("err");
+                  this.statusSubject.next(false);
                 }
               )  
         },
         err=>{
-    
-            this.notifService.showError("error occurs");
-        
+          this.statusSubject.next(false);
         });
     return this.statusData$;
   }

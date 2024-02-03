@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import icJira from '@iconify/icons-logos/jira';
 import icMail from '@iconify/icons-ic/twotone-mail';
 import icAt from '@iconify/icons-fa-solid/at';
+import { Router } from '@angular/router';
 
 
 
@@ -24,6 +25,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private router:Router
   ) { }
 
   ngOnInit() {
@@ -39,9 +41,10 @@ onSubmit() {
   this.submitted = true;
 
   // stop here if form is invalid
-  if (this.loginForm.invalid) {
-      return;
-  }
+  // if (this.loginForm.invalid) {
+  //     return;
+  // }
+  this.router.navigate(['.','dashboard']);
 }
   
 

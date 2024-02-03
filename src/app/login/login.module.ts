@@ -8,9 +8,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { BrowserModule } from '@angular/platform-browser';
-import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 const routes: Routes = [
@@ -24,18 +21,15 @@ const routes: Routes = [
     LoginComponent
   ],
   imports: [
-    RouterModule.forRoot(routes),
+    RouterModule.forChild(routes),
     CommonModule,
-    // ReactiveFormsModule,
-    // MatInputModule,
-    // MatButtonModule,
-    // MatIconModule,
-    // MatSnackBarModule,
-    // MatButtonToggleModule,
-    // MatTooltipModule,
-    // FormsModule,
-    // BrowserModule,
-    // FlexLayoutModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSnackBarModule,
+    MatButtonToggleModule,
+    FormsModule
   ]
 })
 export class LoginModule { }
