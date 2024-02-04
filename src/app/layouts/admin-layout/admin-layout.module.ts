@@ -17,6 +17,9 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { TableExpenseComponent } from 'app/table-list/table-expense/table-expense.component';
 import { MatIconModule } from '@angular/material/icon';
 import { IconModule } from '@visurel/iconify-angular';
+import { ChartsModule } from 'ng2-charts';
+import { PieChartComponent } from 'app/user-profile/chart/piechart';
+import { HelloComponent } from 'app/user-profile/chart/hello.component';
 
 
 
@@ -36,13 +39,16 @@ import { IconModule } from '@visurel/iconify-angular';
     MatDatepickerModule,
     MatNativeDateModule,
     MatIconModule,
-    IconModule
+    IconModule,
+    ChartsModule
   ],
   declarations: [
     DashboardComponent,
     UserProfileComponent,
     TableListComponent,
-    TableExpenseComponent
+    TableExpenseComponent,
+    PieChartComponent,
+    HelloComponent
   ]
 })
 

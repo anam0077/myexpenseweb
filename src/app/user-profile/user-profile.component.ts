@@ -19,6 +19,7 @@ export class UserProfileComponent implements OnInit {
   accountDetail:AccountResponse=null;
   accountDetailSubject:BehaviorSubject<AccountResponse>=new BehaviorSubject(null);
   accountDetailData$:Observable<AccountResponse>=this.accountDetailSubject.asObservable();
+  usageData:number[]=[0,10];
 
 
   constructor(
