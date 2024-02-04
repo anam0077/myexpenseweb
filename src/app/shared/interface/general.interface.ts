@@ -41,3 +41,15 @@ export interface GenericExpenseResponse{
     message:string;
     body:BodyExpense;
 }
+
+export interface AccountResponse{
+    index:string;
+    email:string;
+    username:string;
+    storage_size:StorageSize;
+}
+
+export interface StorageSize{
+    current:string;
+    max:number;
+}
