@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl: string;
+  isLoading:boolean=false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -41,15 +42,16 @@ export class LoginComponent implements OnInit {
    }
 
   onSubmit() {
+    this.isLoading=true;
     this.submitted = true;
     this.loginService.login((this.loginForm.controls?.username?.value || '').toLowerCase(),(this.loginForm.controls?.password?.value || '').toLowerCase()).subscribe(
       data=>{
         if(data){
+          this.isLoading=false;
           this.router.navigate(['/table-list']);
         }
       }
     ) 
-    // this.router.navigate(['/table-list']);
  }
  
 }
