@@ -19,8 +19,8 @@ export class UserProfileComponent implements OnInit {
   accountDetail:AccountResponse=null;
   accountDetailSubject:BehaviorSubject<AccountResponse>=new BehaviorSubject(null);
   accountDetailData$:Observable<AccountResponse>=this.accountDetailSubject.asObservable();
-  usageData:number[]=[0,10];
-
+  usageData:number=null;
+  
 
   constructor(
     private accountService:AccountService,
@@ -39,6 +39,7 @@ export class UserProfileComponent implements OnInit {
     ).subscribe(
       data=>{
         this.accountDetail=data;
+        this.usageData=Math.ceil((parseInt(data.storage_size.current)/data.storage_size.max)*100);
       }
     );
   }
