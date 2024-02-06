@@ -8,8 +8,9 @@
                       <p class="card-category">percentage</p>
                   </div>
                   <div class="card-body">
-                      <p>storage size</p>
-                      <piechart [usage]="50"></piechart>
+                      <p>{{accountDetail.storage_size.current}} byte of {{accountDetail.storage_size.max}} byte ({{usageData}} % )</p>
+                      <piechart [usage]="usageData"></piechart>
+                    
                   </div>
               </div>
           </div>
