@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { LOCAL_STORAGE } from 'ngx-webstorage-service';
+import { StorageService } from 'ngx-webstorage-service/src/storage.service';
+
+
+const STORAGE_KEY = 'myexpense-token';
+
 
 declare const $: any;
 declare interface RouteInfo {
@@ -11,7 +18,9 @@ export const ROUTES: RouteInfo[] = [
     { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
     { path: '/user-profile', title: 'User Profile',  icon:'person', class: '' },
     { path: '/table-list', title: 'Table List',  icon:'content_paste', class: '' },
-    { path: '/about-inner', title: 'about',  icon:'unarchive', class: 'active-pro' },
+    { path: '/about-inner', title: 'about',  icon:'unarchive', class: '' },
+    { path: '', title: 'Logout', icon:'logout', class:'active-pro'}
+
 ];
 
 @Component({
@@ -22,7 +31,10 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   menuItems: any[];
 
-  constructor() { }
+  constructor(
+    @Inject(LOCAL_STORAGE) private storage: StorageService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
@@ -33,4 +45,11 @@ export class SidebarComponent implements OnInit {
       }
       return true;
   };
+
+  logoutProcess(logout:string){
+     if(logout=="Logout"){
+      this.storage.remove(STORAGE_KEY);
+      this.router.navigate(['/login']);
+     }
+  }
 }
