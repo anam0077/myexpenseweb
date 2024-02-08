@@ -1,0 +1,26 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { ApiConfigService } from '../api-config.service';
+import { Observable } from 'rxjs';
+import { DefaultResponse } from 'app/shared/interface/general.interface';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class RegisterService {
+
+  constructor(
+    private apiConfigService: ApiConfigService,
+    private http: HttpClient,
+  ) { }
+
+
+  register(email:string, username:string, password:string){
+    const body={"email":email, "username":username,  "password":password};
+    const headers= new HttpHeaders({
+      'Content-Type':'application/json',
+      'Accept':'*/*'
+    });
+    return this.http.post([this.apiConfigService.proxyApiUrl,'abb4568f44h77/g7789hgjt/z467hhfstcg/register77efghpo'].join('/'),body,{headers, responseType: "json"}) as Observable<DefaultResponse>;
+  }
+}

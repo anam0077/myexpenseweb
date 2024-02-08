@@ -53,3 +53,8 @@ export interface StorageSize{
     current:string;
     max:number;
 }
+
+export interface DefaultResponse{
+    status:string;
+    message:string;
+}
