@@ -47,12 +47,14 @@ onSubmit() {
   .subscribe(
     {
       next:(data)=>{
-        console.log(JSON.stringify(data))
+        if(data.status=="success"){
+          this.router.navigate(['/login']);
+        }
       },
       error:(e)=>console.log(e)
     }
   )
-    // this.router.navigate(['.','dashboard']);
+    
 }
   
 

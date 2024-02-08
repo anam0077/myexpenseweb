@@ -5,6 +5,7 @@ import { ApiConfigService } from '../api-config.service';
 import { BehaviorSubject, Observable, filter } from 'rxjs';
 import { LoginResponse, Credential } from '../../interface/general.interface';
 import { AuthService } from '../auth/auth.service';
+import { Router } from '@angular/router';
 
 const STORAGE_KEY = 'myexpense-token';
 
@@ -24,6 +25,7 @@ export class LoginService implements OnInit{
     private http: HttpClient,
     private authService:AuthService,
     @Inject(LOCAL_STORAGE) private storage: StorageService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -47,27 +49,39 @@ export class LoginService implements OnInit{
           'Content-Type': 'application/json',
           'Accept':'*/*',
         });
+
+        let isYExist=[];
           this.ret= this.http.post([this.apiConfigService.proxyApiUrl, 'abb4568f44h77/g7789hgjt/z467hhfstcg/login56tty'].join('/'), body, { headers , responseType: "json"}) as Observable<LoginResponse>;
           this.ret.subscribe(
             // login success
-            success =>{
-              this.credential.clientId=success.payload.clientId;
-              this.credential.clientSecret=success.payload.clientSecret;
-              this.authService.generateToken(this.credential).subscribe(
-                // generate token success
-                success=>{
-                  // store token
-                  this.storage.set(STORAGE_KEY,success.token);
-                  this.statusSubject.next(true);
-                },
-                err=>{
-                  this.statusSubject.next(false);
-                }
-              )  
-        },
-        err=>{
-          this.statusSubject.next(false);
-        });
+            {
+              next:(data)=>{
+                            // get Y value 
+                             isYExist=data.properties.filter((a)=>a=="Y");
+                            this.credential.clientId=data.payload.clientId;
+                            this.credential.clientSecret=data.payload.clientSecret;
+                            this.authService.generateToken(this.credential).subscribe(
+                              {
+                                // generate token success
+                                next:(data)=>{
+                                              this.storage.set(STORAGE_KEY,data.token);
+                                              this.statusSubject.next(true);
+                                              // check value of properties whether exist 'Y' as mark of verified
+                                              if(isYExist[0]!="Y"){
+                                                this.router.navigate(['/verification/2fa']);
+                                              }
+                                },
+                                error:(e)=>{
+                                              this.statusSubject.next(false);
+                                }
+                              }
+                            )  
+              },
+              error:(e)=>{
+                this.statusSubject.next(false);
+              }
+            }   
+        );
     return this.statusData$;
   }
 }
