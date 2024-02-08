@@ -1,10 +1,10 @@
 <div class="main-content bg">
-    <div class="container-fluid center card w-25 color-pattern">
+    <div class="container-fluid center card w-50 color-pattern">
         <h2 class="card-header">Register</h2>
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
             <div class="form-group">
                 <label for="username">Email</label>
-                <input type="text" formControlName="username" class="form-control"  />
+                <input type="text" formControlName="email" class="form-control"  />
                 <div class="invalid-feedback">
                     <div>Email is required</div>
                 </div>
@@ -27,6 +27,7 @@
                 <button [disabled]="loading" class="btn btn-primary">Register</button>
             
                 <a [routerLink]="['/login']" class="btn btn-link">Login</a>
+                <a [routerLink]="['/about']" class="btn btn-link">About</a>
             </div>
         </form>
     </div>

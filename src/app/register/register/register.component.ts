@@ -4,6 +4,7 @@ import icJira from '@iconify/icons-logos/jira';
 import icMail from '@iconify/icons-ic/twotone-mail';
 import icAt from '@iconify/icons-fa-solid/at';
 import { Router } from '@angular/router';
+import { RegisterService } from 'app/shared/service/register/register.service';
 
 
 
@@ -18,18 +19,20 @@ export class RegisterComponent implements OnInit {
   icMail = icMail;
   icAt = icAt;
 
-  loginForm: FormGroup;
+  registerForm: FormGroup;
   loading = false;
   submitted = false;
   returnUrl: string;
 
   constructor(
     private formBuilder: FormBuilder,
-    private router:Router
+    private router:Router,
+    private registerService: RegisterService,
   ) { }
 
   ngOnInit() {
-    this.loginForm = this.formBuilder.group({
+    this.registerForm = this.formBuilder.group({
+        email:['',Validators.required],
         username: ['', Validators.required],
         password: ['', Validators.required]
     });
@@ -40,11 +43,16 @@ export class RegisterComponent implements OnInit {
 onSubmit() {
   this.submitted = true;
 
-  // stop here if form is invalid
-  // if (this.loginForm.invalid) {
-  //     return;
-  // }
-  this.router.navigate(['.','dashboard']);
+  this.registerService.register(this.registerForm.controls?.email?.value, this.registerForm.controls?.username?.value, this.registerForm.controls?.password?.value)
+  .subscribe(
+    {
+      next:(data)=>{
+        console.log(JSON.stringify(data))
+      },
+      error:(e)=>console.log(e)
+    }
+  )
+    // this.router.navigate(['.','dashboard']);
 }
   
 
