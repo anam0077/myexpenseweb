@@ -19,6 +19,10 @@ const routes: Routes =[
     loadChildren: ()=> import('./about/about.module').then(m=>m.AboutModule)
   },
   {
+    path:'verification',
+    loadChildren: ()=> import('./verification/verification.module').then(m=>m.VerificationModule)
+  },
+  {
     path: '',
     redirectTo: 'about',
     pathMatch: 'full',
