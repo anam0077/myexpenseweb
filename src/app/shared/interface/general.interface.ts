@@ -58,3 +58,13 @@ export interface DefaultResponse{
     status:string;
     message:string;
 }
+
+export interface Account{
+    username:string;
+    password:string;
+}
+
+export interface dataDialog{
+    operation:string;
+    payload:any;
+}
