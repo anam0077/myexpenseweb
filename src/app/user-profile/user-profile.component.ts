@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { AccountResponse } from 'app/shared/interface/general.interface';
+import { DialogComponent } from 'app/shared/dialog/dialog/dialog.component';
+import { AccountResponse} from 'app/shared/interface/general.interface';
 import { AccountService } from 'app/shared/service/user/account.service';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 import { BehaviorSubject, Observable, filter } from 'rxjs';
@@ -25,7 +27,8 @@ export class UserProfileComponent implements OnInit {
   constructor(
     private accountService:AccountService,
     @Inject(LOCAL_STORAGE) private storage: StorageService,
-    private router:Router
+    private router:Router,
+    public dialog:MatDialog
   ) { }
 
   ngOnInit() {
@@ -47,17 +50,58 @@ export class UserProfileComponent implements OnInit {
 
   getAccount(){
     this.accountService.getUserAccount(this.storage.get(STORAGE_KEY)).subscribe(
-      data =>{
-        this.accountDetailSubject.next(data);
-      },
-      err=>{
-        if(err.status==401){
-          this.router.navigate(['/login']);
+      {
+        next:(data)=>{
+              this.accountDetailSubject.next(data);
+        },
+        error:(e)=>{
+          if(e.status==401){
+            this.router.navigate(['/login']);
+          }
         }
       }
-
     )
     
+  }
+
+  deleteAccount():void{
+    const dialofRef=this.dialog.open(DialogComponent,{
+      data:{operation:"deleteAccount", payload:""} || null
+    });
+
+    dialofRef.afterClosed().subscribe(
+      {
+        next:(data)=>{
+            switch(data.operation){
+              case 'confirmation':{
+                    const dialofRef=this.dialog.open(DialogComponent,{
+                      data:data|| null
+                    });
+
+                    dialofRef.afterClosed().subscribe(
+                        {
+                          next:(s)=>{
+                                if(s.status=="success"){
+                                      this.router.navigate(['/login']);
+                                }
+                          },
+                          error:(e)=>{
+
+                          }
+                        } 
+                    )
+
+                break;
+              };
+              default:
+
+            }
+        },
+        error:(e)=>{
+
+        }
+      }
+    )
   }
 
 

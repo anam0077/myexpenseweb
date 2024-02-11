@@ -20,6 +20,8 @@ import { IconModule } from '@visurel/iconify-angular';
 import { ChartsModule } from 'ng2-charts';
 import { PieChartComponent } from 'app/user-profile/chart/piechart';
 import { HelloComponent } from 'app/user-profile/chart/hello.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogComponent } from 'app/shared/dialog/dialog/dialog.component';
 
 
 
@@ -40,7 +42,8 @@ import { HelloComponent } from 'app/user-profile/chart/hello.component';
     MatNativeDateModule,
     MatIconModule,
     IconModule,
-    ChartsModule
+    ChartsModule,
+    MatDialogModule,
   ],
   declarations: [
     DashboardComponent,
@@ -48,7 +51,8 @@ import { HelloComponent } from 'app/user-profile/chart/hello.component';
     TableListComponent,
     TableExpenseComponent,
     PieChartComponent,
-    HelloComponent
+    HelloComponent,
+    DialogComponent
   ]
 })
 
