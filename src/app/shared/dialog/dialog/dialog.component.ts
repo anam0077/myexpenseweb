@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule, MatDialogRef, MatDialogTitle} from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { Account, dataDialog } from 'app/shared/interface/general.interface';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import { dataDialog } from 'app/shared/interface/general.interface';
+import { ExpenseService } from 'app/shared/service/expense/expense.service';
 import { AccountService } from 'app/shared/service/user/account.service';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 
@@ -15,9 +15,12 @@ export class DialogComponent implements OnInit{
 
   username:string='';
   password:string='';
+  item:string='';
+  price:string='';
 
   isDeleteAccount=false;
   isConfirmation=false;
+  isCreateNewExpense=false;
 
   payloadDetele={
     purpose:'',
@@ -32,8 +35,8 @@ export class DialogComponent implements OnInit{
     public dialogRef:MatDialogRef<DialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data:any,
     private accountService:AccountService,
+    private expenseService:ExpenseService,
     @Inject(LOCAL_STORAGE) private storage: StorageService,
-    private router:Router,
   ){}
 
   ngOnInit(): void {
@@ -47,6 +50,10 @@ export class DialogComponent implements OnInit{
          this.isDeleteAccount=true;
         break;
       };
+      case 'createNewExpense':{
+          this.isCreateNewExpense=true;
+        break;
+      }
       case 'confirmation' :{
         this.isConfirmation=true;
         break;
@@ -81,5 +88,20 @@ export class DialogComponent implements OnInit{
           console.log(e)
       }
     })
+  }
+
+
+  createNewExpense(){
+      this.expenseService.addNewExppense(this.storage.get(STORAGE_KEY),this.item, this.price,this.data.payload.today).subscribe(
+        {
+          next:(s)=>{
+            console.warn( 'success'+JSON.stringify(s));
+
+          },
+          error:(e)=>{
+
+          }
+        }
+      )
   }
 }

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { BehaviorSubject, Observable, filter } from 'rxjs';
 import icSearch from '@iconify/icons-ic/baseline-search';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from 'app/shared/dialog/dialog/dialog.component';
 
 declare var require: any;
 const moment = require('moment');
@@ -13,6 +15,7 @@ const moment = require('moment');
 })
 export class TableListComponent implements OnInit {
   constructor(
+    public dialog:MatDialog
   ) { }
 
   today:string='';
@@ -58,6 +61,22 @@ export class TableListComponent implements OnInit {
 
   trigger(){
     this.dateRangeSubject.next(moment(this.range.value.start).format('YYYY-MM-DD')+'&'+moment(this.range.value.end).format('YYYY-MM-DD'));
+  }
+
+
+  addNewExpense():void{
+    const dialofRef=this.dialog.open(DialogComponent,{
+      data:{operation:"createNewExpense", payload:{today:this.today}} || null
+    });
+
+    dialofRef.afterClosed().subscribe({
+      next:(s)=>{
+
+      },
+      error:(e)=>{
+
+      }
+    })
   }
 
 }

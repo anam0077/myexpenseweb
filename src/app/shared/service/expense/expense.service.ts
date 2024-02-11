@@ -3,7 +3,7 @@ import { ApiConfigService } from '../api-config.service';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
 import { Observable } from 'rxjs';
-import { GenericExpenseResponse } from 'app/shared/interface/general.interface';
+import { DefaultResponse, GenericExpenseResponse } from 'app/shared/interface/general.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -33,5 +33,19 @@ export class ExpenseService {
           'Authorization': 'Bearer '+token
         });
         return this.http.get([this.apiConfigService.proxyApiUrl, 'abhgsfgapitest/index',endUri].join('/'), {headers, params}) as Observable<GenericExpenseResponse>;
+  }
+
+
+  addNewExppense(token:string, item:string, amount:string, date:string){
+    const body={"item":item, "amount":amount, "date":date};
+
+    const headers=new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Accept':'*/*',
+          'Authorization': 'Bearer '+token
+    })
+
+    return this.http.post([this.apiConfigService.proxyApiUrl,'abhgsfgapitest/index/insertexpense'].join('/'),body,{headers}) as Observable<DefaultResponse>;
+
   }
 }
