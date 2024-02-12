@@ -8,7 +8,7 @@
     <div class="card-body">
         <div class="table-responsive">
             <table class="table">
-                <thead class=" text-primary">
+                <thead class="text-primary">
                     <th>
                         ID
                     </th>
@@ -20,7 +20,7 @@
                     </th>
                 </thead>
                 <tbody *ngIf="!(expenseResponse.body==null)" >
-                    <tr *ngFor="let item of expenseResponse.body.itemList; let i = index">
+                    <tr *ngFor="let item of expenseResponse.body.itemList; let i = index" (click)="clickedItem(item)">
                         <td>
                             {{i+1}}
                         </td>

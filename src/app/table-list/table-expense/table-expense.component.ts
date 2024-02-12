@@ -1,6 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Inject, Input, OnInit, SimpleChange } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { DialogComponent } from 'app/shared/dialog/dialog/dialog.component';
 import { GenericExpenseResponse ,BodyExpense, Expense } from 'app/shared/interface/general.interface';
 import { ExpenseService } from 'app/shared/service/expense/expense.service';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
@@ -45,7 +47,8 @@ const STORAGE_KEY = 'myexpense-token';
   constructor(
     private expenseService:ExpenseService,
     @Inject(LOCAL_STORAGE) private storage: StorageService,
-    private router: Router
+    private router: Router,
+    public dialog:MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -116,6 +119,24 @@ const STORAGE_KEY = 'myexpense-token';
       }
     }
     )
+  }
+
+  clickedItem(data:any){
+
+    const dialofRef=this.dialog.open(DialogComponent,{
+      data:{
+            operation:"verboseExpense", 
+            payload: {
+              operation:'expenseDetail', 
+              payload: data
+            }
+          } || null
+    });
+
+    dialofRef.afterClosed().subscribe({
+
+    })
+
   }
 
  

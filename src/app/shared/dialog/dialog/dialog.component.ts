@@ -1,8 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnChanges, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import { dataDialog } from 'app/shared/interface/general.interface';
 import { ExpenseService } from 'app/shared/service/expense/expense.service';
 import { AccountService } from 'app/shared/service/user/account.service';
+import * as moment from 'moment';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 
 const STORAGE_KEY = 'myexpense-token';
@@ -21,6 +22,7 @@ export class DialogComponent implements OnInit{
   isDeleteAccount=false;
   isConfirmation=false;
   isCreateNewExpense=false;
+  isVerboseExpense=false;
 
   payloadDetele={
     purpose:'',
@@ -29,6 +31,14 @@ export class DialogComponent implements OnInit{
         password:''
     }
   };
+
+  // payload expense
+  payloadExpense={
+    no:'',
+    item:'',
+    amount:'',
+    date:''
+  }
 
  
   constructor(
@@ -43,6 +53,10 @@ export class DialogComponent implements OnInit{
     this.selection(this.data)
   }
 
+  onChange(newValue){
+   console.log("changes ngModel "+newValue);
+   this.payloadExpense.date=moment(newValue).format('YYYY-MM-DD')
+  }
 
   selection(dataIn:dataDialog){
     switch(dataIn.operation){
@@ -56,6 +70,11 @@ export class DialogComponent implements OnInit{
       }
       case 'confirmation' :{
         this.isConfirmation=true;
+        break;
+      };
+      case 'verboseExpense' :{
+        this.isVerboseExpense=true;
+        this.payloadExpense=this.data.payload.payload
         break;
       }
     }
