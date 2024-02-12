@@ -66,3 +66,38 @@
     <button mat-button (click)="confirmationAction(data.payload)" cdkFocusInitial>ok</button>
   </mat-dialog-actions>
 </div>
+
+<div *ngIf="isVerboseExpense">
+  <mat-dialog-content>
+    <p>Expense detail</p>
+    <div layout="column"> 
+
+    <div flex="">
+      <mat-form-field>
+        <mat-label>item</mat-label>
+        <input matInput [(ngModel)]="payloadExpense.item">
+      </mat-form-field>
+    </div>
+   
+    <div flex="">
+    <mat-form-field>
+      <mat-label>price</mat-label>
+      <input matInput [(ngModel)]="payloadExpense.amount">
+    </mat-form-field>
+    </div>
+    <div flex="">
+    <mat-form-field>
+      <mat-label>date</mat-label>
+      <input matInput [(ngModel)]="payloadExpense.date" (ngModelChange)="onChange($event)" [matDatepicker]="picker">
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    </div>
+
+  </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button cdkFocusInitial>Edit</button>
+  </mat-dialog-actions>
+</div>
