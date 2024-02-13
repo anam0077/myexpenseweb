@@ -54,7 +54,6 @@ export class DialogComponent implements OnInit{
   }
 
   onChange(newValue){
-   console.log("changes ngModel "+newValue);
    this.payloadExpense.date=moment(newValue).format('YYYY-MM-DD')
   }
 
@@ -122,5 +121,20 @@ export class DialogComponent implements OnInit{
           }
         }
       )
+  }
+
+  updateExpense(){
+
+    this.expenseService.updateExpense(this.storage.get(STORAGE_KEY),this.payloadExpense.no, this.payloadExpense.item,this.payloadExpense.amount, this.payloadExpense.date)
+    .subscribe(
+      {
+        next:(s)=>{
+          console.warn( 'success'+JSON.stringify(s));
+        },
+        error:(e)=>{
+
+        }
+      }
+    )
   }
 }
