@@ -48,4 +48,15 @@ export class ExpenseService {
     return this.http.post([this.apiConfigService.proxyApiUrl,'abhgsfgapitest/index/insertexpense'].join('/'),body,{headers}) as Observable<DefaultResponse>;
 
   }
+
+  updateExpense(token:string,index:string, item:string, amount:string, date:string){
+    const body={"index":index,"item":item, "amount":amount, "date":date};
+    const headers=new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept':'*/*',
+      'Authorization': 'Bearer '+token
+      })
+
+      return this.http.post([this.apiConfigService.proxyApiUrl,'abhgsfgapitest/index/updateexpense'].join('/'),body,{headers}) as Observable<DefaultResponse>;
+  }
 }
