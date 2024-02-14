@@ -59,4 +59,16 @@ export class ExpenseService {
 
       return this.http.post([this.apiConfigService.proxyApiUrl,'abhgsfgapitest/index/updateexpense'].join('/'),body,{headers}) as Observable<DefaultResponse>;
   }
+
+  deleteExpense(token:string, index:string){
+    
+    const params=new HttpParams().set('index',index);
+    const headers=new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept':'*/*',
+      'Authorization': 'Bearer '+token
+      })
+
+      return this.http.get([this.apiConfigService.proxyApiUrl,"abhgsfgapitest/index/deleteexpense"].join('/'), {headers, params}) as Observable<DefaultResponse>;
+  }
 }

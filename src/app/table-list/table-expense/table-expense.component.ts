@@ -134,7 +134,16 @@ const STORAGE_KEY = 'myexpense-token';
     });
 
     dialofRef.afterClosed().subscribe({
+        next:(s)=>{
+          if(s!=null){
+            if(s.status=="success" && s.operation=="deleteExpense"){
+              window.location.reload()
+            }
+          }
+        },
+        error:(s)=>{
 
+        }
     })
 
   }

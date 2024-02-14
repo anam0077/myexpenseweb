@@ -69,7 +69,16 @@
 
 <div *ngIf="isVerboseExpense">
   <mat-dialog-content>
-    <p>Expense detail</p>
+    <div class="row">
+      <div class="col-md-8">
+        <p class="mt-2">Expense Detail</p>
+      </div>
+      <div class="col-md-1">
+        <button  (click)="deleteExpense()" mat-icon-button color="warn" aria-label="delete">
+          <i class="material-icons">delete</i>
+        </button>
+      </div> 
+    </div>
     <div layout="column"> 
 
     <div flex="">
@@ -93,8 +102,7 @@
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
     </div>
-
-  </div>
+   </div>
   </mat-dialog-content>
   <mat-dialog-actions>
     <button mat-button (click)="onNoClick()">Cancel</button>
