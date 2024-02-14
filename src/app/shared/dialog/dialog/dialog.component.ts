@@ -137,4 +137,21 @@ export class DialogComponent implements OnInit{
       }
     )
   }
+
+  deleteExpense(){
+    this.expenseService.deleteExpense(this.storage.get(STORAGE_KEY),this.payloadExpense.no)
+    .subscribe(
+      {
+        next:(s)=>{
+          console.warn( 'success'+JSON.stringify(s));
+          if(s.status=="success"){
+            this.dialogRef.close({"status":"success","operation":"deleteExpense"});
+          }
+        },
+        error:(e)=>{
+
+        }
+      }
+    )
+  }
 }
