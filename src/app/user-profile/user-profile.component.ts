@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { DialogComponent } from 'app/shared/dialog/dialog/dialog.component';
 import { AccountResponse} from 'app/shared/interface/general.interface';
@@ -28,7 +29,8 @@ export class UserProfileComponent implements OnInit {
     private accountService:AccountService,
     @Inject(LOCAL_STORAGE) private storage: StorageService,
     private router:Router,
-    public dialog:MatDialog
+    public dialog:MatDialog,
+    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -82,11 +84,13 @@ export class UserProfileComponent implements OnInit {
                         {
                           next:(s)=>{
                                 if(s.status=="success"){
+                                      this._snackBar.open("account is successfully deleted","success")
                                       this.router.navigate(['/login']);
                                 }
                           },
                           error:(e)=>{
-
+                            this._snackBar.open("failed to delete account","warning")
+                            console.error(e);
                           }
                         } 
                     )

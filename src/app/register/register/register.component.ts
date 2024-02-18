@@ -5,6 +5,7 @@ import icMail from '@iconify/icons-ic/twotone-mail';
 import icAt from '@iconify/icons-fa-solid/at';
 import { Router } from '@angular/router';
 import { RegisterService } from 'app/shared/service/register/register.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 
@@ -28,6 +29,7 @@ export class RegisterComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router:Router,
     private registerService: RegisterService,
+    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -48,10 +50,14 @@ onSubmit() {
     {
       next:(data)=>{
         if(data.status=="success"){
+          this._snackBar.open("register success, please login to verify","success");
           this.router.navigate(['/login']);
         }
       },
-      error:(e)=>console.log(e)
+      error:(e)=>{
+        this._snackBar.open("register failed","warning")
+        console.error(e);
+      }
     }
   )
     
