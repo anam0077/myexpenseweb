@@ -22,6 +22,7 @@ import { PieChartComponent } from 'app/user-profile/chart/piechart';
 import { HelloComponent } from 'app/user-profile/chart/hello.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from 'app/shared/dialog/dialog/dialog.component';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
@@ -44,6 +45,7 @@ import { DialogComponent } from 'app/shared/dialog/dialog/dialog.component';
     IconModule,
     ChartsModule,
     MatDialogModule,
+    MatSnackBarModule,
   ],
   declarations: [
     DashboardComponent,
@@ -53,6 +55,9 @@ import { DialogComponent } from 'app/shared/dialog/dialog/dialog.component';
     PieChartComponent,
     HelloComponent,
     DialogComponent
+  ],
+  providers: [
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}}
   ]
 })
 

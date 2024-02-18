@@ -1,5 +1,6 @@
 import { Component, Inject, OnChanges, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { dataDialog } from 'app/shared/interface/general.interface';
 import { ExpenseService } from 'app/shared/service/expense/expense.service';
 import { AccountService } from 'app/shared/service/user/account.service';
@@ -47,6 +48,7 @@ export class DialogComponent implements OnInit{
     private accountService:AccountService,
     private expenseService:ExpenseService,
     @Inject(LOCAL_STORAGE) private storage: StorageService,
+    private _snackBar: MatSnackBar
   ){}
 
   ngOnInit(): void {
@@ -113,11 +115,11 @@ export class DialogComponent implements OnInit{
       this.expenseService.addNewExppense(this.storage.get(STORAGE_KEY),this.item, this.price,this.data.payload.today).subscribe(
         {
           next:(s)=>{
-            console.warn( 'success'+JSON.stringify(s));
-
+            this._snackBar.open("expense is added","success");
           },
           error:(e)=>{
-
+            this._snackBar.open("failed to add expense","warning");
+            console.error(e);
           }
         }
       )
@@ -129,10 +131,11 @@ export class DialogComponent implements OnInit{
     .subscribe(
       {
         next:(s)=>{
-          console.warn( 'success'+JSON.stringify(s));
+          this._snackBar.open("updated","success");
         },
         error:(e)=>{
-
+          this._snackBar.open("update failed","warning");
+          console.error(e);
         }
       }
     )
@@ -143,13 +146,14 @@ export class DialogComponent implements OnInit{
     .subscribe(
       {
         next:(s)=>{
-          console.warn( 'success'+JSON.stringify(s));
+          this._snackBar.open("expense is deleted","success");
           if(s.status=="success"){
             this.dialogRef.close({"status":"success","operation":"deleteExpense"});
           }
         },
         error:(e)=>{
-
+          this._snackBar.open("failed to delete expense","warning");
+          console.error(e);
         }
       }
     )

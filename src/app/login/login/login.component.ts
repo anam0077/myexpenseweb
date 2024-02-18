@@ -6,6 +6,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from 'app/shared/service/login-service/login.service';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { duration } from 'moment';
 
 
 @Component({
@@ -29,7 +31,8 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private loginService: LoginService,
     @Inject(LOCAL_STORAGE) private storage: StorageService,
-    private router: Router
+    private router: Router,
+    private _snackBar: MatSnackBar
   ) { 
    
   }
@@ -44,14 +47,24 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.isLoading=true;
     this.submitted = true;
-    this.loginService.login((this.loginForm.controls?.username?.value || '').toLowerCase(),(this.loginForm.controls?.password?.value || '').toLowerCase()).subscribe(
-      data=>{
-        if(data){
-          this.isLoading=false;
-          this.router.navigate(['/table-list']);
+    this.loginService.login((this.loginForm.controls?.username?.value || '').toLowerCase(),(this.loginForm.controls?.password?.value || '').toLowerCase())
+    .subscribe(
+      {
+        next: (data)=>{
+          if(data){
+            this.isLoading=false;
+            this._snackBar.open("login success","success")
+            this.router.navigate(['/table-list']);
+          }
+        },error:(e)=>{
+          this._snackBar.open("login failed","warning")
+          console.error(e);
         }
       }
+     
     ) 
  }
+
+
  
 }
