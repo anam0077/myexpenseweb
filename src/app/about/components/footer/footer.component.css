@@ -1,12 +1,51 @@
-.spc-color{
-    color:red;
+.spc-color {
+    color: red;
     margin-bottom: 1cm;
 }
-.bg{
+
+.bg-color {
     background-color: black;
-    color:white;
+    color: white;
 }
 
 a {
     color: hotpink;
-  }
+}
+
+
+
+@Media (min-width :576px) {
+
+    .orientation {
+        flex-direction: row;
+    }
+
+    .custom-width-one{
+      margin-left: 10px;
+      width: 15%;
+      text-align: left;
+    }
+
+    .custom-width-two{
+        width: 15%;
+        text-align: left;
+      }
+
+      .custom-width-three{
+        width: 15%;
+        text-align: left;
+      }
+
+      .custom-width-four{
+        width: 45%;
+        text-align: left;
+      }
+}
+
+
+@Media (max-width :576px) {
+
+    .orientation {
+        flex-direction: column;
+    }
+}
