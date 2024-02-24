@@ -1,0 +1,49 @@
+import { Component, Inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { LOCAL_STORAGE } from 'ngx-webstorage-service';
+import { StorageService } from 'ngx-webstorage-service/src/storage.service';
+
+
+const STORAGE_KEY = 'myexpense-token';
+
+
+declare const $: any;
+declare interface RouteInfo {
+    path: string;
+    title: string;
+    icon: string;
+    class: string;
+}
+export const ROUTES: RouteInfo[] = [
+    { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
+    { path: '/user-profile', title: 'User Profile',  icon:'person', class: '' },
+    { path: '/table-list', title: 'Table List',  icon:'content_paste', class: '' },
+    { path: '/about-inner', title: 'about',  icon:'unarchive', class: '' },
+    { path: '', title: 'Logout', icon:'logout', class:'active-pro'}
+
+];
+
+@Component({
+  selector: 'sidebar-about',
+  templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.css']
+})
+export class SidebarComponent implements OnInit {
+  menuItems: any[];
+
+  constructor(
+    @Inject(LOCAL_STORAGE) private storage: StorageService,
+    private router: Router
+  ) { }
+
+  ngOnInit() {
+    this.menuItems = ROUTES.filter(menuItem => menuItem);
+  }
+  isMobileMenu() {
+      if ($(window).width() > 991) {
+          return false;
+      }
+      return true;
+  };
+
+}
