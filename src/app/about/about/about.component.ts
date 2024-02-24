@@ -25,7 +25,6 @@ body = document.getElementsByTagName('body')[0];
 
 onResizeWidth(){
   if ($(window).width() > 991) {
-    //  this.body.classList.remove('main-panel');
      document.getElementById('bd').classList.remove('main-panel');
     this.widthChange=false;
   } else{
