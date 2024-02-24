@@ -9,7 +9,7 @@ img{
 
  @Media (min-width :766px){
 
-    .bg{
+    .bg-about{
     background-image: url(assets/img/mountain.png);
     width: 100%;
     height : 100vh;
