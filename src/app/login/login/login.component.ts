@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
           if(data){
             this.isLoading=false;
             this._snackBar.open("login success","success")
-            this.router.navigate(['/table-list']);
+            this.router.navigate(['/dashboard']);
           }
         },error:(e)=>{
           this._snackBar.open("login failed","warning")

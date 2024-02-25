@@ -3,7 +3,7 @@ import { ApiConfigService } from '../api-config.service';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
 import { Observable } from 'rxjs';
-import { DefaultResponse, GenericExpenseResponse } from 'app/shared/interface/general.interface';
+import { DefaultResponse, DefaultResponseUniversal, GenericExpenseResponse, SummaryData } from 'app/shared/interface/general.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -70,5 +70,18 @@ export class ExpenseService {
       })
 
       return this.http.get([this.apiConfigService.proxyApiUrl,"abhgsfgapitest/index/deleteexpense"].join('/'), {headers, params}) as Observable<DefaultResponse>;
+  }
+
+
+  getSummary(token:string, operation:string, date:string){
+    const params=new HttpParams().set('operation',operation).set('date',date);
+    const headers=new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept':'*/*',
+      'Authorization': 'Bearer '+token
+      })
+
+      return this.http.get([this.apiConfigService.proxyApiUrl,"abhgsfgapitest/index/summary"].join('/'), {headers, params}) as Observable<DefaultResponseUniversal<SummaryData>>;
+
   }
 }
