@@ -68,3 +68,24 @@ export interface dataDialog{
     operation:string;
     payload:any;
 }
+
+export interface DefaultResponseUniversal<T>{
+    status:string;
+    message:string;
+    body:T;
+}
+
+
+export interface SummaryData{
+    startPeriod:string;
+    endPeriod:string;
+    totalAmount:string;
+    lowestAmount:string;
+    highestAmount:string;
+    data:expenseSummaryAmount[];
+}
+
+export interface expenseSummaryAmount{
+    period:string;
+    amount:string;
+}
