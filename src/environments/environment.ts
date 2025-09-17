@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://www.info.englishjet.net'
+  apiUrl: 'https://www.info.anmlumo.com'
 };
